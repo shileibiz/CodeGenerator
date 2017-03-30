@@ -119,7 +119,8 @@ public class DefaultDatabase extends Database {
                 column.setDecimalDigits(rs.getInt("DECIMAL_DIGITS"));
                 column.setRemarks(rs.getString("REMARKS"));
                 if (hasColumn(rs, "IS_AUTOINCREMENT")) {
-                    column.setAutoincrement(rs.getBoolean("IS_AUTOINCREMENT"));
+                    column.setAutoincrement(!rs.getString("IS_AUTOINCREMENT").equals("NO"));//sqlserver 2014版本适用
+//                    column.setAutoincrement(rs.getBoolean("IS_AUTOINCREMENT"));//sqlserver 2014以下版本适用
                 }
 
                 column.setJdbcTypeName(JdbcTypeResolver.getJdbcTypeName(column.getJdbcType()));
